@@ -60,6 +60,14 @@
         android:textOff="OFF"
         android:textOn="ON" />
 
+    <it.ngallazzi.fancyswitch.FancySwitch
+        android:id="@+id/fancySwitch"
+        android:layout_height="110dp"
+        android:layout_width="wrap_content"
+        app:orientation="LANDSCAPE"
+
+        app:baseColor="@android:color/holo_blue_dark" />
+
     <TextView
         android:id="@+id/textView7"
         android:layout_width="match_parent"

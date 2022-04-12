@@ -6,6 +6,9 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import com.shashank.sony.fancytoastlib.FancyToast
+import it.ngallazzi.fancyswitch.FancyState
+import it.ngallazzi.fancyswitch.FancySwitch
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_tugas.*
 
@@ -37,27 +40,35 @@ class TugasActivity : AppCompatActivity() {
 
         })
 
-        radioGroup.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener{
-            override fun onCheckedChanged(p0: RadioGroup?, p1: Int) {
-                var result = when(p1){
-                    R.id.radioButton -> "Option 1"
-                    R.id.radioButton2 -> "Option 2"
-                    R.id.radioButton3 -> "Option 3"
-                    else -> "No Option"
+        radioGroup.setOnCheckedChangeListener { p0, p1 ->
+            var result = when (p1) {
+                R.id.radioButton -> "Option 1"
+                R.id.radioButton2 -> "Option 2"
+                R.id.radioButton3 -> "Option 3"
+                else -> "No Option"
+            }
+            FancyToast.makeText(this@TugasActivity, "Pilijannya adalah ${result}", FancyToast.LENGTH_LONG, FancyToast.SUCCESS,true).show()
+            groupCombo = p1
+        }
+
+        switch1.setOnCheckedChangeListener { p0, p1 ->
+            Toast.makeText(this@TugasActivity, "nilainya adalah ${p1}", Toast.LENGTH_LONG).show()
+            switch1.setText(p1.toString())
+            switchComp = p1
+        }
+
+        fancySwitch.setSwitchStateChangedListener(object : FancySwitch.StateChangedListener{
+            override fun onChanged(newState: FancyState) {
+
+                if(newState.id == FancyState.State.ON){
+                    FancyToast.makeText(this@TugasActivity,"Nilainya adalah on",FancyToast.LENGTH_SHORT, FancyToast.INFO, true).show()
+                }else{
+                    FancyToast.makeText(this@TugasActivity,"Nilainya adalah off",FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show()
                 }
-                Toast.makeText(this@TugasActivity, "Pilijannya adalah ${result}",Toast.LENGTH_LONG).show()
-                groupCombo = p1
+
+
+
             }
-
-        })
-
-        switch1.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
-            override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
-                Toast.makeText(this@TugasActivity, "nilainya adalah ${p1}",Toast.LENGTH_LONG).show()
-                switch1.setText(p1.toString())
-                switchComp = p1
-            }
-
         })
 /*
         switch1.setOnCheckedChangeListener { button, onSwitch ->
